@@ -29,20 +29,20 @@ module IsVisitable
     scope :highest_visits,      :order => 'visits DESC'
     
     # Named scopes: Filters.
-    scope :since,               lambda { |created_at_datetime|  {:conditions => ['created_at >= ?', created_at_datetime]} }
+    scope :since,               lambda { |created_at_datetime|  where("created_at >= ?", created_at_datetime) }
     scope :recent,              lambda { |arg|
                                         if [::ActiveSupport::TimeWithZone, ::DateTime].any? { |c| c.is_a?(arg) }
-                                          {:conditions => ['created_at >= ?', arg]}
+                                          where("created_at >= ?", arg)
                                         else
-                                          {:limit => arg.to_i}
+                                          limit(arg)
                                         end
                                       }
-    scope :between_dates,       lambda { |from_date, to_date|     {:conditions => {:created_at => (from_date..to_date)}} }
-    scope :with_visits,         lambda { |visits_value_or_range|  {:conditions => {:visits => visits_value_or_range}} }
-    scope :of_visitable_type,   lambda { |type|       {:conditions => Support.polymorphic_conditions_for(type, :visitable, :type)} }
-    scope :by_visitor_type,     lambda { |type|       {:conditions => Support.polymorphic_conditions_for(type, :visitor, :type)} }
-    scope :on,                  lambda { |visitable|  {:conditions => Support.polymorphic_conditions_for(visitable, :visitable)} }
-    scope :by,                  lambda { |visitor|    {:conditions => Support.polymorphic_conditions_for(visitor, :visitor)} }
+    scope :between_dates,       lambda { |from_date, to_date|    where(:created_at => (from_date..to_date)) }
+    scope :with_visits,         lambda { |visits_value_or_range|  where(:visits => visits_value_or_range) }
+    scope :of_visitable_type,   lambda { |type|       where(Support.polymorphic_conditions_for(type, :visitable, :type)) }
+    scope :by_visitor_type,     lambda { |type|       where(Support.polymorphic_conditions_for(type, :visitor, :type)) }
+    scope :on,                  lambda { |visitable|  where(Support.polymorphic_conditions_for(visitable, :visitable)) }
+    scope :by,                  lambda { |visitor|    where(Support.polymorphic_conditions_for(visitor, :visitor)) }
     
   end
 end
