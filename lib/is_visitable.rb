@@ -22,7 +22,7 @@ module IsVisitable
   
   mattr_accessor :verbose
   
-  @@verbose = ::Object.const_defined?(:RAILS_ENV) ? (::RAILS_ENV.to_sym == :development) : true
+  @@verbose = ::Rails.env.to_sym == :development
   
   def log(message, level = :info)
     return unless @@verbose
