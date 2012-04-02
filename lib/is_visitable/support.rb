@@ -8,7 +8,7 @@ module IsVisitable
     def polymorphic_conditions_for(object_or_type, field, *match)
       match = [:id, :type] if match.blank?
       # Note: {} is equivalent to Hash.new which takes a block, so we must do: ({}) or (Hash.new)
-      returning({}) do |conditions|
+      {}.tap do |conditions|
         conditions.merge!(:"#{field}_id" => object_or_type.id) if object_or_type.is_a?(::ActiveRecord::Base) && match.include?(:id)
         
         if match.include?(:type)
