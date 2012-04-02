@@ -33,7 +33,6 @@ begin
     
     gemspec.add_development_dependency 'test-unit',     '= 1.2.3'
     gemspec.add_development_dependency 'shoulda',       '>= 2.10.0'
-    gemspec.add_development_dependency 'redgreen',      '>= 0.10.4'
     gemspec.add_development_dependency 'sqlite3-ruby',  '>= 1.2.0'
     gemspec.add_development_dependency 'acts_as_fu',    '>= 0.0.5'
   end

@@ -14,9 +14,9 @@ end
 
 smart_require 'test/unit', 'test-unit', '= 1.2.3'
 smart_require 'shoulda', 'shoulda', '>= 2.10.0'
-smart_require 'redgreen', 'redgreen', '>= 0.10.4'
 smart_require 'sqlite3', 'sqlite3-ruby', '>= 1.2.0'
 smart_require 'acts_as_fu', 'acts_as_fu', '>= 0.0.5'
+smart_require "rails", "rails", "~> 3.0.10"
 
 require 'test_helper'
 
