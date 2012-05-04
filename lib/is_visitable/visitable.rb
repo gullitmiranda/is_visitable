@@ -115,8 +115,9 @@ module IsVisitable #:nodoc:
         end
         
         # Save the initialized options for this class.
-        self.write_inheritable_attribute :is_visitable_options, options
-        self.class_inheritable_reader :is_visitable_options
+        self.class_attibute :is_visitable_options
+				self.is_visitable_options = options
+
       end
       
       # Does this class count/track visits?
