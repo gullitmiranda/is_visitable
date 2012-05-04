@@ -18,9 +18,9 @@ smart_require 'sqlite3', 'sqlite3-ruby', '>= 1.2.0'
 smart_require 'acts_as_fu', 'acts_as_fu', '>= 0.0.5'
 smart_require "rails", "rails", "~> 3.0.10"
 
-require 'test_helper'
+# require 'test_helper'
 
-require 'is_visitable'
+require '../lib/is_visitable'
 
 build_model :visits do
   references  :visitable,     :polymorphic => true

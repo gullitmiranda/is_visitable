@@ -115,7 +115,7 @@ module IsVisitable #:nodoc:
         end
         
         # Save the initialized options for this class.
-        self.class_attibute :is_visitable_options
+        self.class_attribute :is_visitable_options
 				self.is_visitable_options = options
 
       end
