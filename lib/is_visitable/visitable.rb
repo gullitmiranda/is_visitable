@@ -76,7 +76,8 @@ module IsVisitable #:nodoc:
         
         # Assocations: Visitor class(es) (e.g. User, Account, ...).
         options[:visitor_classes].each do |visitor_class|
-          if ::Object.const_defined?(visitor_class.name.to_sym)
+          
+          if visitor_class.is_a? Object
             visitor_class.class_eval do
               has_many :visits, :as => :visitor, :dependent  => :delete_all
                 
