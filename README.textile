@@ -31,21 +31,21 @@ class IsVisitableMigration < ActiveRecord::Migration
   def self.up
     create_table :visits do |t|
       t.references  :visitable,     :polymorphic => true
-      
+
       t.references  :visitor,       :polymorphic => true
       t.string      :ip,            :limit => 24
-      
+
       t.integer     :visits,        :default => 1
-      
+
       # created_at <=> first_visited_at
       # updated_at <=> last_visited_at
       t.timestamps
     end
-    
+
     add_index :visits, [:visitor_id, :visitor_type]
     add_index :visits, [:visitable_id, :visitable_type]
   end
-  
+
   def self.down
     drop_table :visits
   end
@@ -138,8 +138,8 @@ h3. @Visit@
 
 * @in_order@ - most recent visits last (order by creation date).
 * @most_recent@ - most recent visits first (opposite of @in_order@ above).
-* @least_visits@ - visits with least total visits first.
-* @most_rating@ - visits with most total visits first.
+* @lowest_visits@ - visits with least total visits first.
+* @highest_visits@ - visits with most total visits first.
 
 *Filter:*
 
@@ -197,9 +197,9 @@ This is optional, but if you wanna be in control of your models (in this case @V
 
 <pre>
 class Visit < IsVisitable::Visit
-  
+
   # Do what you do best here... (stating the obvious: core IsVisitable associations, named scopes, etc. will be inherited)
-  
+
 end
 </pre>
 
@@ -216,7 +216,7 @@ class AddTrackVisitsCachingToPostsMigration < ActiveRecord::Migration
     add_column :posts, :cached_unique_visits, :integer
     add_column :posts, :cached_total_visits, :integer
   end
-  
+
   def self.down
     remove_column :posts, :cached_unique_visits
     remove_column :posts, :cached_total_visits
@@ -232,13 +232,13 @@ Example: @app/controllers/posts_controller.rb@:
 
 <pre>
 class PostsController < ApplicationController
-  
+
   def show
     ...
     @post.visit!(:by => (current_user.present? ? current_user : request.try(:remote_ip)))
     ...
   end
-  
+
 end
 </pre>
 
